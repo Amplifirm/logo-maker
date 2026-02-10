@@ -23,5 +23,13 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": [
+    "src/Businessdetails.tsx",
+    "src/Businesslist.tsx",
+    "src/pages/Businessform.tsx",
+    "src/pages/Dashboard.tsx",
+    "src/components/Dashboard.tsx",
+    "src/components/Hyperspeed"
+  ]
 }
