@@ -18,11 +18,11 @@ interface GroupInfo { id: number; keys: Set<string>; color: string }
 
 // ── Constants ────────────────────────────────────────────────
 const DEF_SIZE = 50;
-const ACCENT = "#7c5cfc";
+const ACCENT = "#00b9ff";
 const LS_KEY = "logopaint_save";
 const PALETTE = [
   "#ff4d6a", "#ff8c42", "#ffd166", "#06d6a0", "#1b9aaa",
-  "#4361ee", "#7c5cfc", "#c77dff", "#f472b6", "#ffffff",
+  "#4361ee", "#00b9ff", "#c77dff", "#f472b6", "#ffffff",
   "#888888", "#222222",
 ];
 const BG_DARK = "#0e0e12";
@@ -54,8 +54,8 @@ const TEMPLATES: { name: string; cells: [number, number, string][] }[] = [
   {
     name: "Diamond",
     cells: [
-      [0, 0, "#7c5cfc"], [0, 1, "#4361ee"], [-1, 0, "#7c5cfc"], [-1, 1, "#4361ee"],
-      [1, 0, "#4361ee"], [1, 1, "#7c5cfc"], [0, -1, "#4361ee"], [0, 2, "#7c5cfc"],
+      [0, 0, "#00b9ff"], [0, 1, "#4361ee"], [-1, 0, "#00b9ff"], [-1, 1, "#4361ee"],
+      [1, 0, "#4361ee"], [1, 1, "#00b9ff"], [0, -1, "#4361ee"], [0, 2, "#00b9ff"],
     ],
   },
   {
@@ -1931,7 +1931,7 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
 
   // ── JSX return ─────────────────────────────────────────────
   const tb = "px-2.5 py-1.5 rounded-lg text-[11px] font-medium transition-all duration-200 ease-out hover:scale-[1.04] active:scale-[0.96]";
-  const tbOn = `${tb} bg-[#7c5cfc] text-white shadow-sm shadow-purple-200 lp-glow`;
+  const tbOn = `${tb} bg-[#00b9ff] text-white shadow-sm shadow-sky-200 lp-glow`;
   const tbOff = `${tb} text-gray-500 hover:text-gray-900 hover:bg-gray-50`;
   const pb = "px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ease-out bg-gray-50 text-gray-600 hover:text-gray-900 hover:bg-gray-100 border border-gray-100 hover:scale-[1.02] active:scale-[0.96] hover:shadow-sm";
 
@@ -1942,13 +1942,10 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
         {/* Logo → Home */}
         <button
           onClick={() => navigate("/")}
-          className="flex items-center gap-2 pr-3 border-r border-gray-200 cursor-pointer bg-transparent border-none hover:opacity-80 transition-opacity"
+          className="flex items-center pr-3 border-r border-gray-200 cursor-pointer bg-transparent border-none hover:opacity-70 transition-opacity"
           title="Back to home"
         >
-          <img src="/logopaint (2).svg" alt="" className="w-5 h-6" />
-          <span className="font-semibold text-sm" style={{ fontFamily: "'Anonymous Pro', monospace", color: "#00b9ff" }}>
-            LogoPainter
-          </span>
+          <img src="/logopaint (2).svg" alt="LogoPainter" className="w-5 h-6" />
         </button>
 
         {/* Shape selector */}
@@ -1958,7 +1955,7 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
               key={gType}
               onClick={() => setGrid(gType)}
               className={`w-8 h-7 flex items-center justify-center rounded-lg text-base transition-all duration-150 ${
-                grid === gType ? "bg-[#7c5cfc] text-white shadow-sm shadow-purple-200" : "text-gray-400 hover:text-gray-700 hover:bg-gray-50"
+                grid === gType ? "bg-[#00b9ff] text-white shadow-sm shadow-sky-200" : "text-gray-400 hover:text-gray-700 hover:bg-gray-50"
               }`}
               title={`Shape: ${gType}`}
             >
@@ -1994,7 +1991,7 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
                 onClick={() => setSym(sType)}
                 className={`px-2.5 py-1.5 rounded-lg text-[11px] font-medium transition-all duration-150 ${
                   sym === sType
-                    ? "bg-purple-100 text-purple-700 shadow-sm shadow-purple-100"
+                    ? "bg-sky-100 text-sky-700 shadow-sm shadow-sky-100"
                     : "text-gray-400 hover:text-gray-700 hover:bg-gray-50"
                 }`}
                 title={icon}
@@ -2057,7 +2054,7 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
 
         <button
           onClick={save}
-          className="px-3.5 py-1.5 rounded-lg text-[11px] bg-[#7c5cfc] text-white hover:bg-[#6b4be0] transition-all duration-150 font-medium shadow-sm shadow-purple-200"
+          className="px-3.5 py-1.5 rounded-lg text-[11px] bg-[#00b9ff] text-white hover:bg-[#009dd9] transition-all duration-150 font-medium shadow-sm shadow-sky-200"
         >
           Save
         </button>
@@ -2093,12 +2090,12 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
           {/* Floating status */}
           <div className="absolute bottom-3 left-3 flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/90 backdrop-blur-md border border-gray-200/60 shadow-lg shadow-gray-200/50 text-[11px] text-gray-500 font-mono pointer-events-none lp-float-up">
             <span>{cells.size} cells</span>
-            {sel.size > 0 && <span className="text-purple-400">{sel.size} selected</span>}
+            {sel.size > 0 && <span className="text-sky-400">{sel.size} selected</span>}
           </div>
 
           {/* Toast */}
           {toast && (
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 px-5 py-2 rounded-xl bg-[#7c5cfc] text-white text-sm font-medium shadow-lg shadow-purple-300/50 pointer-events-none z-50 lp-pop">
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 px-5 py-2 rounded-xl bg-[#00b9ff] text-white text-sm font-medium shadow-lg shadow-sky-300/50 pointer-events-none z-50 lp-pop">
               {toast}
             </div>
           )}
@@ -2106,9 +2103,9 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
           {/* AI Chat */}
           {chatOpen ? (
             <div className="absolute bottom-3 left-3 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200/60 flex flex-col overflow-hidden z-40 lp-pop" style={{ maxHeight: "min(420px, calc(100% - 24px))" }}>
-              <div className="flex items-center justify-between px-4 py-2.5 border-b border-gray-100 bg-gradient-to-r from-[#7c5cfc]/5 to-transparent flex-shrink-0">
+              <div className="flex items-center justify-between px-4 py-2.5 border-b border-gray-100 bg-gradient-to-r from-[#00b9ff]/5 to-transparent flex-shrink-0">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-[#7c5cfc] animate-pulse" />
+                  <div className="w-2 h-2 rounded-full bg-[#00b9ff] animate-pulse" />
                   <span className="text-xs font-semibold text-gray-700">AI Assistant</span>
                 </div>
                 <button onClick={() => setChatOpen(false)} className="text-gray-400 hover:text-gray-600 text-lg leading-none transition-colors">&times;</button>
@@ -2119,7 +2116,7 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
                     key={`${i}-${chatVer}`}
                     className={`text-[13px] leading-relaxed px-3 py-2 rounded-xl max-w-[88%] transition-all ${
                       m.role === "user"
-                        ? "ml-auto bg-[#7c5cfc] text-white rounded-br-md"
+                        ? "ml-auto bg-[#00b9ff] text-white rounded-br-md"
                         : "bg-gray-100 text-gray-700 rounded-bl-md"
                     }`}
                   >
@@ -2128,9 +2125,9 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
                 ))}
                 {chatLoading && (
                   <div className="flex items-center gap-1 px-3 py-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#7c5cfc] animate-bounce" style={{ animationDelay: "0ms" }} />
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#7c5cfc] animate-bounce" style={{ animationDelay: "150ms" }} />
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#7c5cfc] animate-bounce" style={{ animationDelay: "300ms" }} />
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#00b9ff] animate-bounce" style={{ animationDelay: "0ms" }} />
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#00b9ff] animate-bounce" style={{ animationDelay: "150ms" }} />
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#00b9ff] animate-bounce" style={{ animationDelay: "300ms" }} />
                   </div>
                 )}
                 <div ref={chatEndRef} />
@@ -2143,12 +2140,12 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
                     onChange={e => setChatInput(e.target.value)}
                     onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChat(); } }}
                     placeholder="Describe a logo..."
-                    className="flex-1 px-3 py-2 text-[13px] rounded-xl bg-gray-50 border border-gray-200 outline-none focus:border-[#7c5cfc] transition-colors placeholder:text-gray-300"
+                    className="flex-1 px-3 py-2 text-[13px] rounded-xl bg-gray-50 border border-gray-200 outline-none focus:border-[#00b9ff] transition-colors placeholder:text-gray-300"
                   />
                   <button
                     onClick={sendChat}
                     disabled={chatLoading}
-                    className="px-3 py-2 rounded-xl bg-[#7c5cfc] text-white text-xs font-medium hover:bg-[#6b4be0] transition-all disabled:opacity-50 active:scale-95"
+                    className="px-3 py-2 rounded-xl bg-[#00b9ff] text-white text-xs font-medium hover:bg-[#009dd9] transition-all disabled:opacity-50 active:scale-95"
                   >
                     Send
                   </button>
@@ -2158,7 +2155,7 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
           ) : (
             <button
               onClick={() => setChatOpen(true)}
-              className="absolute bottom-14 left-3 w-9 h-9 rounded-full bg-[#7c5cfc] text-white shadow-lg shadow-purple-300/30 flex items-center justify-center hover:scale-110 transition-all z-40 lp-glow"
+              className="absolute bottom-14 left-3 w-9 h-9 rounded-full bg-[#00b9ff] text-white shadow-lg shadow-sky-300/30 flex items-center justify-center hover:scale-110 transition-all z-40 lp-glow"
               title="AI Assistant"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -2195,7 +2192,7 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
                     <button
                       key={c.name}
                       onClick={() => { c.fn(); setCmdOpen(false); setCmdQ(""); }}
-                      className="w-full text-left px-5 py-2.5 text-sm text-gray-600 hover:bg-purple-50 hover:text-gray-900 transition-colors"
+                      className="w-full text-left px-5 py-2.5 text-sm text-gray-600 hover:bg-sky-50 hover:text-gray-900 transition-colors"
                     >
                       {c.name}
                     </button>
@@ -2217,7 +2214,7 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
                   onClick={() => setColor(c)}
                   className={`w-8 h-8 rounded-xl transition-all duration-150 ${
                     color === c
-                      ? "ring-2 ring-[#7c5cfc] ring-offset-2 ring-offset-white scale-110 shadow-md"
+                      ? "ring-2 ring-[#00b9ff] ring-offset-2 ring-offset-white scale-110 shadow-md"
                       : "hover:scale-110 shadow-sm shadow-gray-200/50"
                   }`}
                   style={{ backgroundColor: c }}
@@ -2291,7 +2288,7 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
                       }}
                       className={`w-6 h-6 rounded-full text-[10px] font-medium transition-all ${
                         on
-                          ? "bg-[#7c5cfc] text-white shadow-sm"
+                          ? "bg-[#00b9ff] text-white shadow-sm"
                           : "bg-gray-100 text-gray-400 border border-gray-200"
                       }`}
                     >
@@ -2356,7 +2353,7 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
                 max={6}
                 value={strokeW}
                 onChange={e => setStrokeW(+e.target.value)}
-                className="flex-1 h-1 appearance-none bg-gray-200 rounded accent-[#7c5cfc]"
+                className="flex-1 h-1 appearance-none bg-gray-200 rounded accent-sky-400"
               />
               <span className="text-xs text-gray-500 w-4">{strokeW}</span>
             </div>
@@ -2536,7 +2533,7 @@ function Sld({
         max={max}
         value={value}
         onChange={e => onChange(Number(e.target.value))}
-        className="flex-1 h-1 appearance-none bg-gray-100 rounded-full accent-[#7c5cfc] cursor-pointer"
+        className="flex-1 h-1 appearance-none bg-gray-100 rounded-full accent-sky-400 cursor-pointer"
       />
       <span className="text-xs text-gray-500 font-mono w-8 text-right">{value}</span>
     </div>
