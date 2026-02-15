@@ -1,10 +1,11 @@
 // ============================================================
-// LogoPaint — Geometric Mosaic Logo Designer
-// Route: /triangle
+// LogoPainter — Geometric Mosaic Logo Designer
+// Route: /create
 // ============================================================
 
 // ── Imports ──────────────────────────────────────────────────
 import { useState, useRef, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 // ── Types ────────────────────────────────────────────────────
 type Grid = "tri" | "rtri" | "sq" | "dia" | "hex";
@@ -518,7 +519,10 @@ function contentBounds(
 
 // ── Component ────────────────────────────────────────────────
 export default function TrianglePainter() {
+  const navigate = useNavigate();
   // ── State ──────────────────────────────────────────────────
+  const [showOnboard, setShowOnboard] = useState(() => !localStorage.getItem("lp_onboarded"));
+  const [onboardStep, setOnboardStep] = useState(0);
   const [cells, setCells] = useState<CellMap>(new Map());
   const [grid, setGrid] = useState<Grid>("tri");
   const [tool, setTool] = useState<Tool>("paint");
@@ -1935,13 +1939,17 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
     <div className="flex flex-col h-screen w-screen overflow-hidden bg-[#f5f6f8] text-gray-900 text-sm select-none">
       {/* ── Top Toolbar ── */}
       <div className="h-12 flex-shrink-0 flex items-center bg-white border-b border-gray-200/80 px-4 gap-2.5 lp-fade-down">
-        {/* Logo */}
-        <div className="flex items-center gap-2 pr-3 border-r border-gray-200">
-          <div className="w-5 h-5 rounded-md bg-gradient-to-br from-[#7c5cfc] to-[#f472b6] transition-transform duration-300 hover:rotate-12 hover:scale-110" />
-          <span className="font-semibold text-sm bg-gradient-to-r from-[#7c5cfc] to-[#f472b6] bg-clip-text text-transparent">
-            LogoPaint
+        {/* Logo → Home */}
+        <button
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2 pr-3 border-r border-gray-200 cursor-pointer bg-transparent border-none hover:opacity-80 transition-opacity"
+          title="Back to home"
+        >
+          <img src="/logopaint (2).svg" alt="" className="w-5 h-6" />
+          <span className="font-semibold text-sm" style={{ fontFamily: "'Anonymous Pro', monospace", color: "#00b9ff" }}>
+            LogoPainter
           </span>
-        </div>
+        </button>
 
         {/* Shape selector */}
         <div className="flex items-center bg-gray-50 rounded-xl p-0.5 border border-gray-100 mr-1">
@@ -2059,6 +2067,13 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
           title="Command palette (Cmd+K)"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+        <button
+          className="w-7 h-7 flex items-center justify-center rounded-md text-gray-400 hover:text-[#00b9ff] hover:bg-blue-50 transition-all text-xs font-bold"
+          onClick={() => { setOnboardStep(0); setShowOnboard(true); }}
+          title="Tutorial"
+        >
+          ?
         </button>
       </div>
 
@@ -2444,6 +2459,49 @@ Think like a geometric artist. Understand the grid's tiling pattern and USE it c
           )}
         </div>
       </div>
+
+      {/* ── Onboarding Overlay ── */}
+      {showOnboard && (() => {
+        const steps = [
+          { title: "Choose a grid", desc: "Pick from 5 grid types — triangles, squares, hexagons and more. Each creates a unique geometric style.", icon: "⬡" },
+          { title: "Pick a tool & paint", desc: "Use Paint (P), Erase (E), Fill (G), or Line (L). Click and drag on the canvas to create your design.", icon: "✦" },
+          { title: "Ask the AI", desc: "Click the chat bubble in the bottom-left corner. Describe what you want and the AI builds it for you.", icon: "💬" },
+          { title: "Export your logo", desc: "When you're done, export as PNG (any size), SVG, or grab a shareable link from the right panel.", icon: "↗" },
+        ];
+        const step = steps[onboardStep];
+        const isLast = onboardStep === steps.length - 1;
+        const dismiss = () => { localStorage.setItem("lp_onboarded", "1"); setShowOnboard(false); };
+        return (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center lp-backdrop" style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)" }}>
+            <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full mx-4 overflow-hidden lp-drop">
+              <div className="px-8 pt-8 pb-2 text-center">
+                <div className="text-4xl mb-4">{step.icon}</div>
+                <h2 className="text-lg font-bold text-gray-900 mb-2" style={{ fontFamily: "'Anonymous Pro', monospace" }}>{step.title}</h2>
+                <p className="text-sm text-gray-500 leading-relaxed">{step.desc}</p>
+              </div>
+              {/* Progress dots */}
+              <div className="flex justify-center gap-2 py-4">
+                {steps.map((_, i) => (
+                  <div key={i} className={`w-2 h-2 rounded-full transition-all ${i === onboardStep ? "bg-[#00b9ff] scale-125" : "bg-gray-200"}`} />
+                ))}
+              </div>
+              {/* Buttons */}
+              <div className="flex items-center justify-between px-8 pb-6">
+                <button onClick={dismiss} className="text-sm text-gray-400 hover:text-gray-600 transition-colors" style={{ fontFamily: "'Inter', sans-serif" }}>
+                  Skip
+                </button>
+                <button
+                  onClick={() => isLast ? dismiss() : setOnboardStep(s => s + 1)}
+                  className="px-5 py-2 rounded-lg text-sm font-semibold text-white transition-all hover:opacity-90"
+                  style={{ background: "#00b9ff", fontFamily: "'Anonymous Pro', monospace" }}
+                >
+                  {isLast ? "Let's Go!" : "Next"}
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 }
