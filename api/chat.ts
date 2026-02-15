@@ -1,16 +1,24 @@
-import type { VercelRequest, VercelResponse } from "@vercel/node";
+export const config = { runtime: "edge" };
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: Request) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
+    return new Response(JSON.stringify({ error: "Method not allowed" }), {
+      status: 405,
+      headers: { "content-type": "application/json" },
+    });
   }
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: "ANTHROPIC_API_KEY not configured" });
+    return new Response(JSON.stringify({ error: "ANTHROPIC_API_KEY not configured" }), {
+      status: 500,
+      headers: { "content-type": "application/json" },
+    });
   }
 
   try {
+    const body = await req.json();
+
     const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
@@ -18,18 +26,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         "x-api-key": apiKey,
         "anthropic-version": "2023-06-01",
       },
-      body: JSON.stringify(req.body),
+      body: JSON.stringify(body),
     });
 
-    if (!response.ok) {
-      const errText = await response.text();
-      return res.status(response.status).json({ error: errText });
-    }
-
-    const data = await response.json();
-    return res.status(200).json(data);
+    const data = await response.text();
+    return new Response(data, {
+      status: response.status,
+      headers: { "content-type": "application/json" },
+    });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
-    return res.status(500).json({ error: message });
+    return new Response(JSON.stringify({ error: message }), {
+      status: 500,
+      headers: { "content-type": "application/json" },
+    });
   }
 }
