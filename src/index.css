@@ -3,13 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --navy: #1e3456;
-  --green: #4d9a3d;
+  --accent: #00b9ff;
+  --bg: #0a0a0f;
+  --text: #e8e8f0;
+  --muted: #888899;
   font-family: 'Inter', system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #1e3456;
-  background-color: #ffffff;
+  color: var(--text);
+  background-color: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -24,7 +26,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: #fff;
+  background: var(--bg);
 }
 
 * {
@@ -32,13 +34,13 @@ body {
 }
 
 ::selection {
-  background: rgba(30, 52, 86, 0.08);
+  background: rgba(0, 185, 255, 0.15);
 }
 
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #fff; }
-::-webkit-scrollbar-thumb { background: rgba(30, 52, 86, 0.1); border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(30, 52, 86, 0.2); }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.15); }
 
 @keyframes marquee {
   0% { transform: translateX(0); }
@@ -49,4 +51,146 @@ body {
 }
 .animate-marquee:hover {
   animation-play-state: paused;
+}
+
+/* LogoPaint Custom Scrollbar */
+.logopaint-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.logopaint-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.logopaint-scroll::-webkit-scrollbar-thumb {
+  background: rgba(124, 92, 252, 0.15);
+  border-radius: 4px;
+}
+.logopaint-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 92, 252, 0.3);
+}
+
+/* Toast Fade-in Animation */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+.animate-toast-in {
+  animation: toast-in 0.2s ease-out;
+}
+
+/* Color Input Cleanup */
+input[type="color"] {
+  -webkit-appearance: none;
+  border: none;
+  padding: 0;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+}
+
+/* Range Input Styling */
+.logopaint-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 2px;
+  outline: none;
+}
+.logopaint-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #7c5cfc;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.logopaint-range::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* ── LogoPaint Animations ────────────────────────────── */
+
+/* Panel slide-in from right */
+@keyframes lp-slide-in {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.lp-slide-in {
+  animation: lp-slide-in 0.25s ease-out both;
+}
+
+/* Toolbar fade-down */
+@keyframes lp-fade-down {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.lp-fade-down {
+  animation: lp-fade-down 0.2s ease-out both;
+}
+
+/* Scale pop for buttons */
+@keyframes lp-pop {
+  0% { transform: scale(0.92); opacity: 0; }
+  70% { transform: scale(1.03); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.lp-pop {
+  animation: lp-pop 0.2s ease-out both;
+}
+
+/* Fade in up for panels content */
+@keyframes lp-fade-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.lp-fade-up {
+  animation: lp-fade-up 0.25s ease-out both;
+}
+
+/* Command palette backdrop */
+@keyframes lp-backdrop {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.lp-backdrop {
+  animation: lp-backdrop 0.15s ease-out;
+}
+
+/* Command palette drop */
+@keyframes lp-drop {
+  from { opacity: 0; transform: translateY(-16px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.lp-drop {
+  animation: lp-drop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Status bar float in */
+@keyframes lp-float-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.lp-float-up {
+  animation: lp-float-up 0.3s ease-out 0.1s both;
+}
+
+/* Pulse glow for active tool indicator */
+@keyframes lp-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(124, 92, 252, 0.3); }
+  50% { box-shadow: 0 0 0 4px rgba(124, 92, 252, 0); }
+}
+.lp-glow {
+  animation: lp-glow 2s ease-in-out infinite;
 }

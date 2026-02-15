@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400.0 480.0">
+<path d="M200.00,40.00 L280.00,40.00 L280.00,120.00 L200.00,120.00Z" fill="#00d4ff" stroke="#00d4ff" stroke-width="1" stroke-linejoin="round"/>
+<path d="M280.00,40.00 L360.00,40.00 L360.00,120.00 L280.00,120.00Z" fill="#00d4ff" stroke="#00d4ff" stroke-width="1" stroke-linejoin="round"/>
+<path d="M200.00,200.00 L280.00,200.00 L280.00,280.00 L200.00,280.00Z" fill="#00b9ff" stroke="#00b9ff" stroke-width="1" stroke-linejoin="round"/>
+<path d="M280.00,200.00 L360.00,200.00 L360.00,280.00 L280.00,280.00Z" fill="#00b9ff" stroke="#00b9ff" stroke-width="1" stroke-linejoin="round"/>
+<path d="M200.00,360.00 L280.00,360.00 L280.00,440.00 L200.00,440.00Z" fill="#0082ff" stroke="#0082ff" stroke-width="1" stroke-linejoin="round"/>
+<path d="M280.00,360.00 L360.00,360.00 L360.00,440.00 L280.00,440.00Z" fill="#0082ff" stroke="#0082ff" stroke-width="1" stroke-linejoin="round"/>
+<path d="M120.00,120.00 L200.00,120.00 L200.00,200.00 L120.00,200.00Z" fill="#00c4ff" stroke="#00c4ff" stroke-width="1" stroke-linejoin="round"/>
+<path d="M120.00,200.00 L200.00,200.00 L200.00,280.00 L120.00,280.00Z" fill="#00a9ff" stroke="#00a9ff" stroke-width="1" stroke-linejoin="round"/>
+<path d="M120.00,280.00 L200.00,280.00 L200.00,360.00 L120.00,360.00Z" fill="#0090ff" stroke="#0090ff" stroke-width="1" stroke-linejoin="round"/>
+<path d="M40.00,200.00 L120.00,200.00 L120.00,280.00 L40.00,280.00Z" fill="#0090ff" stroke="#0090ff" stroke-width="1" stroke-linejoin="round"/>
+</svg>
